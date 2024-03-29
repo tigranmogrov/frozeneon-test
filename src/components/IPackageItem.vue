@@ -33,6 +33,12 @@ defineProps<{
   padding: 20px;
   margin-bottom: 10px;
   cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: darken(#e4e4e4, 30);
+    }
+  }
 }
 .item-head {
   > * {
