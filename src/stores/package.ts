@@ -1,4 +1,4 @@
-import type { IPackageState } from '@/types/package.types';
+import type { IPackage, IPackageState } from '@/types/package.types';
 import { defineStore } from 'pinia';
 
 export const usePackageStore = defineStore('package', {
@@ -9,5 +9,12 @@ export const usePackageStore = defineStore('package', {
     currentPage: 1,
     limit: 10,
     isLoading: false
-  })
+  }),
+  getters: {
+    getPackages: (state): IPackage[] => state.packages.map((pa) => pa.package),
+    getTotalPage: (state): number => Math.ceil(state.totalSize / state.limit),
+    getOffset: (state): number => (state.currentPage - 1) * state.limit,
+    getCurrentPage: (state): number => state.currentPage,
+    getSearchText: (state): string => state.searchText
+  }
 });
