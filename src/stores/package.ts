@@ -12,7 +12,7 @@ export const usePackageStore = defineStore('package', {
     isLoading: false
   }),
   getters: {
-    getPackages: (state): IPackage[] => state.packages.map((pa) => pa.package),
+    getPackages: (state): IPackage[] => state.packages.map((data) => data.package),
     getTotalPage: (state): number => Math.ceil(state.totalSize / state.limit),
     getOffset: (state): number => (state.currentPage - 1) * state.limit,
     getCurrentPage: (state): number => state.currentPage,
