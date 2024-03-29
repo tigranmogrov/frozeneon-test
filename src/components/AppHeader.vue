@@ -1,9 +1,20 @@
 <script setup lang="ts">
 import LogoImg from '@/assets/logo.png';
 import IInput from '@/components/IInput.vue';
-import { ref } from 'vue';
+import { usePackageStore } from '@/stores/package';
+import { debounce } from '@/utils';
+import { ref, watch } from 'vue';
 
-const searchQuery = ref('');
+const packageStore = usePackageStore();
+
+const { fetchPackages, getSearchText } = packageStore;
+const searchQuery = ref(getSearchText);
+
+const fetchNewData = debounce(fetchPackages, 300);
+
+watch(searchQuery, () => {
+  fetchNewData(searchQuery.value, 1);
+});
 </script>
 
 <template>
@@ -23,6 +34,7 @@ const searchQuery = ref('');
   width: 100%;
   margin-right: auto;
   margin-left: auto;
+
   img {
     display: block;
     width: 60px;
