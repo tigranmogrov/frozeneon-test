@@ -14,10 +14,9 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: calc(50% - 50px) calc(50% - 150px);
+  width: 300px;
+  height: 100px;
   z-index: 9999;
 }
 
