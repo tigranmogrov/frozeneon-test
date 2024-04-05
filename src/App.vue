@@ -3,6 +3,7 @@ import AppFooter from '@/components/AppFooter.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import { usePackageStore } from '@/stores/package';
 import HomeView from '@/views/HomeView.vue';
+import { onMounted } from 'vue';
 
 const packageStore = usePackageStore();
 const { fetchPackages } = packageStore;
@@ -10,10 +11,12 @@ const { fetchPackages } = packageStore;
 const currentParams = new URLSearchParams(window.location.search);
 const textQuery: string = currentParams.get('text') || '';
 const pageQuery: number = parseInt(currentParams.get('page') || '1');
-
-if (textQuery !== '') {
-  fetchPackages(textQuery, pageQuery);
-}
+const pageNumber = isNaN(pageQuery) ? 1 : pageQuery;
+onMounted(() => {
+  if (textQuery !== '') {
+    fetchPackages(textQuery, pageNumber);
+  }
+});
 </script>
 
 <template>
