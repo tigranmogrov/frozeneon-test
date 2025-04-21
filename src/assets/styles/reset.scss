@@ -228,7 +228,7 @@ pre {
 /* Set consistent quote types */
 
 q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
+  quotes: '\201C' '\201D' '\2018' '\2019';
 }
 
 /* Address inconsistent and variable font size in all browsers */
@@ -357,8 +357,8 @@ select {
    2. Remove excess padding in IE 8/9/10.
    3. Add cursor pointer */
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
   box-sizing: border-box;
 
   /* 1 */
@@ -373,7 +373,7 @@ input[type="radio"] {
 /* Address `box-sizing` set to `border-box` in Safari 5 and Chrome
    (include `-moz` to future-proof) */
 
-input[type="search"] {
+input[type='search'] {
   /* 2 */
   box-sizing: content-box;
 }
@@ -381,8 +381,8 @@ input[type="search"] {
 /* Remove inner padding and search cancel button in Safari 5 and Chrome
    on OS X. */
 
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration {
   appearance: none;
 }
 
