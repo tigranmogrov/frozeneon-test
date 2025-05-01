@@ -1,0 +1,4 @@
+[submodule "_core"]
+	path = _core
+	url = https://github.com/tigranmogrov/_core.git
+	branch = main
