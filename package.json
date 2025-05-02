@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "test 2",
+  "description": "test 5",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
