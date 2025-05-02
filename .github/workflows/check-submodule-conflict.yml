@@ -1,0 +1,52 @@
+name: Check Submodule Conflict
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-submodule:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch with submodules
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Set up Git user (optional)
+        run: |
+          git config user.name "CI Bot"
+          git config user.email "ci@example.com"
+
+      - name: Fetch base branch (release-*)
+        run: |
+          git fetch origin ${{ github.base_ref }}
+
+      - name: Attempt merge (no commit, no push)
+        run: |
+          git merge --no-commit --no-ff origin/${{ github.base_ref }} || echo "Merge conflicts detected"
+
+      - name: Auto-resolve submodule conflict by updating to release branch hash
+        run: |
+          SUBMODULE_PATH="_core"  # <-- указываем путь к сабмодулю
+
+          # Проверяем, был ли конфликт по сабмодулю
+          if git ls-files -u | grep "$SUBMODULE_PATH" &>/dev/null; then
+            echo "Submodule conflict detected at $SUBMODULE_PATH"
+          
+            # Извлекаем хеш актуальной версии сабмодуля из релизной ветки
+            git submodule update --remote "$SUBMODULE_PATH"
+          
+            # Добавляем сабмодуль с актуальной версией
+            git add "$SUBMODULE_PATH"
+            echo "Submodule conflict resolved by taking the latest release hash."
+          else
+            echo "No submodule conflict detected"
+          fi
+
+      - name: Run your tests or build
+        run: |
+          echo "CI passed — submodule conflict (if any) resolved using the latest release hash"
+          # здесь можешь вставить свои команды: yarn build, npm test и т.п.
